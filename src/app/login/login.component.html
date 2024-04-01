@@ -1,0 +1,94 @@
+<div class="container-fluid" id="app-login">
+    <div class="row d-flex justify-content-center align-items-center min-vh-100">
+      <div class="col-md-6 col-12">
+        <div class="card-login shadow-rounded row">
+          <div class="col-md col-12 p-0 d-flex align-items-center position-relative">
+            <i role="button" routerLink="/" class="fa fa-tint fa-2x" style="position: absolute; top: 10px; right: 10px; color: white;"></i>
+            <img src="assets/img/imagen-login.jpg" class="img-login" alt="">
+            <img src="assets/img/compra-venta-3.jpg" alt="" class="img-login-mobile">
+          </div>
+
+          <div class="col-md col-12 px-4 py-3">
+            <div class="row mt-1" *ngIf="!before">
+              <div class="col">
+                <!-- <div class="col-md-12 col-12 my-3 text-center">
+                  <img src="assets/img/file.png" alt="" style="width: 100px; height: 100px;">
+                </div> -->
+
+                <h4 class="text-start mb-4">Inicio de Sesión</h4>
+                <div class="form-group" (keyup.enter)="login()">
+                  <label for="idUser" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Correo</label>
+                  <input type="text" name="idUser" [(ngModel)]="idUser" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Correo Electrónico..." [disabled]="before" />
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3" *ngIf="!before">
+              <div class="col">
+                <div class="form-group" (keyup.enter)="login()">
+                  <label for="password" class="text-uppercase my-2 fw-bold" style="font-size: 0.875rem;">Contraseña</label>
+                  <input type="password" name="password" [(ngModel)]="password" class="form-control br-1" style="font-size: 0.875rem;" placeholder="Contraseña..." [disabled]="before"/>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col text-center">
+                <button class="btn btn-blue btn-block w-100 br-1" *ngIf="!before" (click)="login()">
+                  <i class="fa fa-spinner me-1 rotating" *ngIf="cargando"> </i>
+                  <span *ngIf="!cargando" class="fw-bold" style="font-size: 0.9rem;"> Iniciar Sesión </span>
+                  <span *ngIf="cargando"> Cargando... </span>
+                </button>
+                <button class="btn btn-orange btn-block w-100" *ngIf="before">
+                  <i class="fa fa-spinner me-1 rotating" *ngIf="cargando"> </i>
+                  <span *ngIf="!cargando" class="fw-bold" style="font-size: 0.9rem;"> Accede a la aplicación </span>
+                  <span *ngIf="cargando"> Cargando... </span>
+                </button>
+              </div>
+            </div>
+            <div class="row mt-3" *ngIf="!before">
+              <div class="col d-flex align-items-center">
+                <input type="checkbox" class="form-check-input mx-2"> <span style="font-size: 0.9rem;">Recuerdame</span>
+                <p-inputSwitch
+                  [(ngModel)]="input.recuerdame"
+                  (onChange)="before = false"
+                  class="ms-2 mt-1"
+                ></p-inputSwitch>
+              </div>
+              <div class="col text-center">
+                <button class="btn btn-block btn-alt fw-normal" style="font-size: 0.9rem;" (click)="abrirModalRecuperarUsuario()">
+                  Recuperar contraseña
+                </button>
+              </div>
+            </div>
+            <div class="text-center saludo mt-2" *ngIf="before">
+              <b>¡Hola de nuevo, <span class="text-orange">{{ name }}</span>!</b>
+            </div>
+            <div class="row mt-3" *ngIf="error">
+              <div class="col text-center">
+                <span class="badge badge-danger py-1">
+                  <i class="fa fa-exclamation-triangle me-1"> </i>
+                  <span> {{ error }}</span>
+                </span>
+              </div>
+            </div>
+            <div class="row mt-1" *ngIf="before">
+              <div class="col text-center">
+                <button class="btn btn-block btn-alt" (click)="cancelarRecuerdame()">
+                  <i class="fa fa-question me-1"></i>
+                  Tu no eres {{ name }}?
+                </button>
+              </div>
+            </div>
+            <div class="row mt-3 text-center" *ngIf="!before">
+              <p style="font-size: 0.9rem;">
+              <span>No eres miembro?</span>
+              <a role="button" class="text-blue" routerLink="/register">
+                Registrate
+              </a>
+            </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,172 @@
+<!-- Usuario del sistema -->
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Edit Account</h4>
+
+        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal" (click)="d('Cerrar')"></button>
+    </div>
+
+    <div class="modal-body">
+          <div class="text-center">
+
+          	<div class="d-flex">
+	            <div class="form-group col px-md-2 p-0 text-left">
+	            	<label style="font-weight: bold;" for="name">First Name(s)</label>
+	              <input type="text" class="form-control input-lg" name="name" id="name"  placeholder="Name" [(ngModel)]="names">
+	            </div>
+	            <div class="form-group col px-md-2 p-0 text-left">
+	            	<label style="font-weight: bold;" for="apellido">Last Name(s)</label>
+	              <input type="text" class="form-control input-lg" name="apellido" id="apellido" placeholder="Apellido" [(ngModel)]="apellidos">
+	            </div>
+            </div>
+
+            <!-- <div class="form-group px-md-2 text-left">
+            	<label style="font-weight: bold;" for="usernameOld">Name de Usuario</label>
+              <input type="text" class="form-control input-lg" name="usernameOld" id="usernameOld" placeholder="Name de Usuario" [(ngModel)]="usernameOld">
+            </div> -->
+
+            <div class="form-group px-md-2 text-left">
+            	<label style="font-weight: bold;" for="email">Email</label>
+              <input type="text" class="form-control input-lg" name="email" id="email" placeholder="Correo Electronico" [(ngModel)]="correo">
+            </div>
+
+            <div class="form-group px-md-2 text-left">
+            	<label style="font-weight: bold;" for="cedula">Phone</label>
+              <input type="text" class="form-control input-lg" name="telefono" id="telefono" placeholder="Telefono" [(ngModel)]="telefono">
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <button class="btn btn-primary" type="submit">Edit</button>
+              </div>
+            </div>
+
+          </div>
+    </div>
+</ng-template>
+
+<ng-template #contentConfig let-c="close" let-d="dismiss">
+		<div class="modal-header">
+        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal" (click)="d('Cerrar')">
+        </button>
+    </div>
+
+    <div class="modal-body">
+    		<div class="accordion" id="accordionExample">
+				  <div class="card" *ngIf="this.roleCurrent == 'ADMIN'">
+				    <div class="card-header" id="headingOne">
+				      <h2 class="mb-0">
+				        <button class="btn btn-link btn-block text-left collapsed text-decoration-none text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+				          <b> Administrator Privileges. </b>
+				        </button>
+				      </h2>
+				    </div>
+
+				    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+				      <div class="card-body">
+				        	<!-- Default switch -->
+							<div class="custom-control custom-switch">
+								<input type="checkbox" class="custom-control-input" id="adminSwitches" *ngIf="this.role == 'ADMIN'" checked>
+								<input type="checkbox" class="custom-control-input" id="adminSwitches" *ngIf="this.role == 'USER'">
+								<label class="custom-control-label" for="adminSwitches">Convert to Administrator User.</label>
+							</div>
+				      </div>
+				    </div>
+				  </div>
+				  <div class="card">
+				    <div class="card-header" id="headingTwo">
+				      <h2 class="mb-0">
+				        <button class="btn btn-link btn-block text-left collapsed text-decoration-none text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+				         <b> Change Password. </b>
+				        </button>
+				      </h2>
+				    </div>
+				    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+				      <div class="card-body">
+				        <div class="form">
+							<div class="form-group my-2">
+								<input type="password" class="form-control input-lg" placeholder="Current password" id="password">
+							</div>
+
+							<div class="form-group my-2">
+								<input type="password" class="form-control input-lg" placeholder="New password" id="passwordNew">
+							</div>
+
+							<div class="form-group my-2">
+								<button type="button" class="btn btn-secondary">Cambiar Contraseña</button>
+							</div>
+						</div>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+    </div>
+</ng-template>
+
+<div class="container justify-content-center">
+	<div class="row mx-auto mb-4 card margin-container">
+		
+		<div class="py-4 card-header">
+
+			<div class="text-left">
+
+				<div class="d-flex">
+					<div class="foto-perfil">
+						<a>
+							<img src="/assets/img/perfil-user.jpg" class="tamaño-imagen">
+						</a>
+					</div>		
+
+					<div class="text-center px-md-5 px-2">
+						<h4 class="my-3 responsive-280">{{ usuario.name }} {{ usuario.lastName }}</h4>
+						
+						<div class="d-flex justify-content-center">
+								<button class="btn py-0 px-md-3 px-3" *ngIf="this.usernameCurrent == this.username || this.roleCurrent == 'ADMIN'" style="background-color: #35134c!important; color: white;" (click)="open(content)">Edit</button>
+								<a (click)="open(contentConfig)" *ngIf="this.usernameCurrent == this.username || this.roleCurrent == 'ADMIN'" class="ml-2" style="color: #3d556f!important;"><li class="pi pi-cog size-icons mx-2"></li></a>
+						</div>
+					</div>
+				</div>
+
+				<div class="container mt-2">
+					<div class="justify-content-center">
+						<span style="font-size: 14px; font-family: cursive;">{{ usuario.username }}</span> 
+					</div>
+					<div class="justify-content-center">
+						<span style="font-size: 14px; font-family: cursive;">{{ usuario.dateBirthday }}</span> 
+					</div>
+					<div class="justify-content-center">
+						<span style="font-size: 14px; font-family: cursive;"><b>{{ usuario.role }}</b></span> 
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- El siguiente codigo no va
+		<div class="card-body px-4 py-0">
+
+			<h6 class="text-center my-3">Activities</h6>
+			<table class="table">
+	            <thead>
+		            <tr>
+		                <th style="width: 25%">Name</th>
+		                <th style="width: 25%">Status</th>
+		                <th style="width: 25%">Date</th>
+						<th style="width: 25%">Time</th>
+		            </tr>
+		            </thead>
+		            <tbody>
+		            <tr class="bloque-activity">
+			                <th scope="row">Activity 1</th>
+			                <td>Active</td>
+			                <td>10/08/2023</td>
+							<td>10:00</td>
+		            </tr>
+	            </tbody>
+        	</table>
+
+		</div>
+-->
+	</div>
+</div>

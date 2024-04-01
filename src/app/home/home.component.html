@@ -1,0 +1,87 @@
+<header>
+	<nav class="navbar navbar-expand-lg bg-blue-black navbar-light nav-smartgents shadow-nav-smartgents" id="navbar-home">
+		<div class="container-fluid px-0">
+			<a class="navbar-brand ms-md-4 ms-2" routerLink='/'>
+				<img src="assets/img/logo.png" class="d-inline-block align-top logo-size rounded" style="box-shadow: 3px 9px 12px 3px rgba(0, 0, 0, 0.11), 0 5px 14px 0 rgba(0, 0, 0, 0.1);">
+			</a>
+			
+			<button class="navbar-toggler text-item me-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="input-group rounded w-50 mx-auto" id="block-search-mobile">
+				<input id="searchInput" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+				<span class="input-group-text border-0" id="search-addon">
+				  <i class="fa fa-search"></i>
+				</span>
+			</div>
+
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<div class="input-group rounded w-50 mx-auto" id="block-search">
+					<input id="searchInput2" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+					<span class="input-group-text border-0" id="search-addon">
+					  <i class="fa fa-search"></i>
+					</span>
+				</div>
+
+				<ul class="navbar-nav d-flex ms-auto bg-blue-black rounded">
+					<li class="nav-item text-center">
+						<a class="nav-link text-item" routerLink="/" title="Home" (click)="collapseHide()">Inicio<span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item text-center">
+						<a class="nav-link text-item" href="#about-us" title="Información de Nosotros" (click)="collapseHide()">Tiendas</a>
+					</li>
+					<li class="nav-item text-center">
+						<a class="nav-link text-item" href="#contact-us" title="Como Encontrarnos" (click)="collapseHide()" >Contactanos</a>
+					</li>
+
+					<div class="d-md-flex ms-md-4 me-md-2">
+            			<li class="nav-item mx-md-1 my-md-0 mt-2 text-center">
+							<a class="btn btn-danger text-button" (click)="logout()">Cerrar Sesión</a> 
+						</li>
+						<li class="nav-item mx-md-1 my-md-0 mt-2 mb-3 text-center">
+							<a class="btn btn-secondary text-button" (click)="Gotoregister()">Crear Usuario</a> 
+						</li>
+					</div>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</header>
+
+<div *ngIf="spinner == '1'" id="spinner" class="spinner-container justify-content-center align-items-center">
+  <div class="spinner-sl-border spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<div id="space-mobile"></div>
+
+<div class="d-flex" id="wrapper">
+    <!-- Sidebar -->
+    <div class="border-right sidebar-color-wrapper" id="sidebar" #sidebar>
+        <div class="sidebar-heading text-center" style="height: 12vh;" *ngIf="toggleShow">
+            <!-- <a class="text-decoration-none text-white" routerLink="/home/options-view" style="font-weight: bold;">
+            <img src="assets/img/file.png" class="img-logo-size" alt="">
+            </a> -->
+            <a class="mx-auto my-2 arrow-sidebar text-decoration-none"  id="menu-toggle-mobile" role="button" (click)="showToggle()">
+              <i class="fa fa-compress m-auto" style="color: black"></i>
+            </a>
+        </div>
+        <div class="list-group list-group-flush" *ngIf="toggleShow">
+          <a  [ngClass]="{'items-color-active': view == '0'}" routerLink="/home/option-list" id="item-home" (click)="hideToggle();" style="border-width: 0px;" class="list-group-item list-group-item-action py-2 text-center items-color" ><i class="fa fa-home size-icons"></i> <br> <span class="font-letters"> Inicio </span></a>
+          <a  [ngClass]="{'items-color-active': view == '1'}" id="item-calendar" (click)="hideToggle();" style="border-width: 0px;" class="list-group-item list-group-item-action py-2 text-center items-color" ><i class="fa fa-tint size-icons"></i> <br> <span class="font-letters"> Sangre </span></a>
+          <a  [ngClass]="{'items-color-active': view == '2'}" id="item-partner" (click)="hideToggle();" style="border-width: 0px;" class="list-group-item list-group-item-action py-2 text-center items-color" ><i class="fa fa-bar-chart size-icons"></i> <br> <span class="font-letters"> Estadistica</span></a>
+          <a  [ngClass]="{'items-color-active': view == '3'}" id="item-files" (click)="hideToggle();" style="border-width: 0px;" class="list-group-item list-group-item-action py-2 text-center items-color" ><i class="fa fa-thermometer-full size-icons"></i> <br> <span class="font-letters"> Diagnostico </span></a>
+          <a  [ngClass]="{'items-color-active': view == '4'}" id="item-account" (click)="hideToggle();" routerLink="/home/account" style="border-width: 0px;" class="list-group-item list-group-item-action py-2 text-center items-color" ><i class="pi pi-user size-icons"></i> <br> <span class="font-letters"> Cuenta </span></a>
+          <!-- <a  [ngClass]="{'items-color-active': view == '5'}"  id="item-course-list" (click)="hideToggle();" class="list-group-item list-group-item-action py-3 text-center items-color" routerLink="/home/course-list"><i class="fas fa-book-open size-icons"></i> <br> <span class="font-letters"> Asignaturas </span></a> -->
+        </div>
+    </div>
+
+    <div class="container-fluid height-container px-0">
+        <a class="me-auto my-2 arrow-sidebar text-decoration-none arrow-botton shadow-icon-toggle" *ngIf="!toggleShow" role="button" (click)="showToggle()">
+        	<i class="fa fa-expand m-auto" style="color: black"></i>
+        </a>
+        <router-outlet></router-outlet>
+    </div>
+</div>
