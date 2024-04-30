@@ -12,12 +12,17 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
+import { SangreComponent } from './sangre/sangre.component';
+import { MatToolbarModule } from '@angular/material/toolbar'; 
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon'
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 @NgModule({
   declarations: [
     OptionListComponent,
     ProfileComponent,
+    SangreComponent,
   ],
   imports: [
     CommonModule,
@@ -31,7 +36,13 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule, 
     MatInputModule, 
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule,
+    MatIconModule
   ],
 })
-export class HomeModule { }
+export class HomeModule { 
+  public constructor(iconRegistry: MatIconRegistry, domSanitizer: DomSanitizer) {
+    iconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl('./assets/mdi.svg'))
+  }
+}
