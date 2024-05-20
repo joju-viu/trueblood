@@ -2,7 +2,7 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">Edit Account</h4>
+        <h4 class="modal-title">Editar Cuenta</h4>
 
         <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal" (click)="d('Cerrar')"></button>
     </div>
@@ -10,35 +10,35 @@
     <div class="modal-body">
           <div class="text-center">
 
-          	<div class="d-flex">
-	            <div class="form-group col px-md-2 p-0 text-left">
-	            	<label style="font-weight: bold;" for="name">First Name(s)</label>
+          	<div class="d-flex my-2">
+	            <div class="form-group col px-md-2 p-0 text-start">
+	            	<label style="font-weight: bold;" for="name">Nombres(s)</label>
 	              <input type="text" class="form-control input-lg" name="name" id="name"  placeholder="Name" [(ngModel)]="names">
 	            </div>
-	            <div class="form-group col px-md-2 p-0 text-left">
-	            	<label style="font-weight: bold;" for="apellido">Last Name(s)</label>
+	            <div class="form-group col px-md-2 p-0 text-start">
+	            	<label style="font-weight: bold;" for="apellido">Apellidos(s)</label>
 	              <input type="text" class="form-control input-lg" name="apellido" id="apellido" placeholder="Apellido" [(ngModel)]="apellidos">
 	            </div>
             </div>
 
-            <!-- <div class="form-group px-md-2 text-left">
+            <!-- <div class="form-group px-md-2 text-start">
             	<label style="font-weight: bold;" for="usernameOld">Name de Usuario</label>
               <input type="text" class="form-control input-lg" name="usernameOld" id="usernameOld" placeholder="Name de Usuario" [(ngModel)]="usernameOld">
             </div> -->
 
-            <div class="form-group px-md-2 text-left">
-            	<label style="font-weight: bold;" for="email">Email</label>
+            <div class="form-group px-md-2 text-start my-2">
+            	<label style="font-weight: bold;" for="email">Correo Electronico</label>
               <input type="text" class="form-control input-lg" name="email" id="email" placeholder="Correo Electronico" [(ngModel)]="correo">
             </div>
 
-            <div class="form-group px-md-2 text-left">
-            	<label style="font-weight: bold;" for="cedula">Phone</label>
+            <div class="form-group px-md-2 text-start my-2">
+            	<label style="font-weight: bold;" for="cedula">Telefono</label>
               <input type="text" class="form-control input-lg" name="telefono" id="telefono" placeholder="Telefono" [(ngModel)]="telefono">
             </div>
 
             <div class="row">
               <div class="col-md-12">
-                <button class="btn btn-primary" type="submit">Edit</button>
+                <button class="btn btn-primary" type="submit">Editar</button>
               </div>
             </div>
 
@@ -104,8 +104,8 @@
     </div>
 </ng-template>
 
-<div class="container justify-content-center">
-	<div class="row mx-auto mb-4 card margin-container">
+<div class="container-fluid justify-content-center">
+	<div class="row mx-auto mb-4 card my-3">
 		
 		<div class="py-4 card-header">
 
@@ -119,11 +119,13 @@
 					</div>		
 
 					<div class="text-center px-md-5 px-2">
-						<h4 class="my-3 responsive-280">{{ usuario.name }} {{ usuario.lastName }}</h4>
+						<h4 class="my-3 responsive-280">{{ usuario.name }} {{ usuario.apellido }}</h4>
 						
 						<div class="d-flex justify-content-center">
-								<button class="btn py-0 px-md-3 px-3" *ngIf="this.usernameCurrent == this.username || this.roleCurrent == 'ADMIN'" style="background-color: #35134c!important; color: white;" (click)="open(content)">Edit</button>
-								<a (click)="open(contentConfig)" *ngIf="this.usernameCurrent == this.username || this.roleCurrent == 'ADMIN'" class="ml-2" style="color: #3d556f!important;"><li class="pi pi-cog size-icons mx-2"></li></a>
+								<button class="btn py-0 px-md-3 px-3" *ngIf="this.usernameCurrent == this.username || this.roleCurrent == 'ADMIN'" style="background-color: #012257!important; color: white;" (click)="open(content)">Editar</button>
+								<a (click)="open(contentConfig)" role="button" *ngIf="this.usernameCurrent == this.username || this.roleCurrent == 'ADMIN'" class="ml-2" style="color: #3d556f!important;">
+									<mat-icon matPrefix fontIcon="settings" class="mx-2" style="align-items: center;display: flex;"></mat-icon>
+								</a>
 						</div>
 					</div>
 				</div>

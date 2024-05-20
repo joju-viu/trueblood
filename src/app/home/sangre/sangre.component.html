@@ -1,0 +1,227 @@
+<div class="container-fluid my-3">
+    <div class="card col-12" id="tabla-import"> 
+        <p-table #dt 
+                [columns]="selected_columns"
+                [value]="content_sangres"
+                [paginator]="true" 
+                [rows]="5"
+                [rowsPerPageOptions]="[5,10,15,20, { showAll: 'All' }]"
+                [showCurrentPageReport]="true" 
+                currentPageReportTemplate="Mostrando {first} a {last} de {totalRecords} registros"
+                [pageLinks]="3"
+                styleClass="p-datatable-striped p-datatable-lg p-datatable-gridlines"
+                [autoLayout]="true" 
+                [responsive]="true" 
+                selectionMode="multiple"
+                exportFilename="sangres" 
+                [reorderableColumns]="true" 
+                [lazy]="lazy">
+
+                <ng-template pTemplate="caption">
+                    <div class="d-flex justify-content-between">
+                    <div class="panel-filter-left">
+                        <button class="btn-success btn me-3" (click)="open(modalSangre, null)">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                        <span class="p-input-icon-left ms-auto me-3 width-search py-md-0 py-2">
+                            <i class="pi pi-search"></i>
+                            <input class="form-control px-5 py-2" type="text" (input)="apply_filter($event)"
+                                placeholder="Buscar..." />
+                        </span>
+                        <p-multiSelect [options]="table_cols"
+                            [(ngModel)]="selected_columns" optionLabel="header"
+                            selectedItemsLabel="{0} columnas seleccionadas" [style]="{minWidth: '200px'}"
+                            placeholder="Seleccione las Columnas">
+                        </p-multiSelect>
+                        <button class="btn btn-warning responsive-filter" (click)="show_filters = !show_filters"
+                            *ngIf="show_filters">Mostrar Filtros</button>
+                        <button class="btn btn-warning responsive-filter" (click)="show_filters = !show_filters"
+                            *ngIf="!show_filters">Ocultar Filtros</button>
+                    </div>
+                    <div class="panel-filter-right">
+                        <button pButton label="Clear" class="btn btn-warning p-button-outlined me-2"
+                            (click)="clear(dt)">
+                            <i class="fa fa-eraser"></i> Limpiar filtros
+                        </button>
+                        <button type="button" pButton pRipple (click)="dt.exportCSV()"
+                            class="btn btn-success me-2" pTooltip="CSV" tooltipPosition="bottom">
+                            <i class="fa fa-file-excel-o"></i>
+                        </button>
+                    </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                    <th pReorderableColumn pResizableColumn pSortableColumn="{{col.field}}"
+                        *ngFor="let col of columns">
+                        <div class="d-flex justify-content-between align-items-center">
+                            {{col.header}}
+                            <div [hidden]="show_filters">
+                                <p-sortIcon field="{{col.field}}"></p-sortIcon>
+                                <p-columnFilter type="text" field="{{col.field}}" display="menu" class="align-right">
+                                </p-columnFilter>
+                            </div>
+                        </div>
+                    </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-sangre let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns">
+                             <!-- <a *ngIf="col.field.includes('status')" class="text-decoration-none text-dark">
+                                <span>{{ statusProductName(sangre[col.field]) }}</span>
+                             </a>-->
+                             <a *ngIf="col.field.includes('type')" class="text-decoration-none text-dark">
+                                <span>{{ categoryName(sangre[col.field]) }}</span>
+                             </a>
+                             <!-- <a *ngIf="col.field.includes('currency')" class="text-decoration-none text-dark">
+                                <span>{{ currencyProductName(sangre[col.field]) }}</span>
+                             </a> -->
+                             <a *ngIf="!col.field.includes('type')" class="text-decoration-none text-dark">
+                                {{ sangre[col.field] }}
+                             </a>
+                            <div *ngIf="col.field == 'actions'" class="text-center" style="white-space: nowrap;">
+                                <button title="Ver Detalles..." class="btn btn-success me-2 rounded-circle" (click)="open(modalView, sangre)">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                                <button class="btn btn-warning me-2 rounded-circle" title="Editar" (click)="open(modalSangre, sangre)">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger me-2 rounded-circle" title="Eliminar" (click)="delete(modalDelete, sangre)">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                    <tr>
+                    <td colspan="7">No se encontraron registros.</td>
+                    </tr>
+                </ng-template>
+        </p-table>
+    </div>
+</div>
+
+<!-- Crear sangre / Inicio -->
+<ng-template #modalDelete let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h6>¿Estas seguro que deseas eliminar este tipo de sangre? </h6>
+        <button type="button" (click)="d('Cerrar')" class="btn-close close" data-bs-dismiss="modal" aria-label="Close" style="font-size: .785rem;"></button>
+    </div>
+    <div class="modal-body">
+        <span>Su información será eliminadas permanentemente.</span>
+        <div class="row">
+            <div class="col-12 mt-4 mb-2 text-end">
+                <button class="btn btn-danger mx-1" (click)="deleteSangre(sangre._id)">Eliminar</button>
+                <button class="btn btn-secondary mx-1" (click)="d('Cerrar')">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Crear sangre / Inicio -->
+<ng-template #modalView let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Sangre #{{ sangre.code }}</h4>
+        <button type="button" (click)="d('Cerrar')" class="btn-close close" data-bs-dismiss="modal" aria-label="Close" style="font-size: .785rem;"></button>
+    </div>
+    <div class="modal-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-12">
+                    <h6> {{ sangre.name }} </h6>
+                    <h6><b>Tipo:</b> {{ sangre.type }}</h6>
+                    <h6><b>Nivel de Sangre:</b> {{ sangre.level }}</h6>
+                    <h6>Publicado por <b>{{ sangre.createBy }}</b></h6>
+                </div>
+            </div>
+            <div class="row">
+                <div class="my-3 p-0">
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Descripción</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                            <div class="p-2">
+                                <p *ngIf="sangre.content">
+                                    {{ sangre.content }}
+                                </p>
+                                <p *ngIf="!sangre.content">
+                                    Sin descripción.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<!-- Crear sangre / Inicio -->
+<ng-template #modalSangre let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">{{ titleModal }}</h4>
+        <button type="button" (click)="d('Cerrar')" class="btn-close close" data-bs-dismiss="modal" aria-label="Close" style="font-size: .785rem;"></button>
+    </div>
+
+    <div class="modal-body">
+            <div class="card p-md-4 p-2">
+                <div class="form">
+                    <div class="row my-1">
+                        <div class="col-md-6 col-12">
+                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
+                                <mat-label>Código <span style="color: red">*</span></mat-label>
+                                <input matInput type="number" [(ngModel)]="sangre.code" id="codigo" name="codigo">
+                                <mat-icon matPrefix fontIcon="code"></mat-icon>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-6 col-12">
+                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
+                                <mat-label>Nombre <span style="color: red">*</span></mat-label>
+                                <input matInput [(ngModel)]="sangre.name" id="name" name="name">
+                                <mat-icon matPrefix fontIcon="title"></mat-icon>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row my-1">
+                        <div class="col-md-6 col-12">
+                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
+                                <mat-label>Nivel de la Sangre <span style="color: red">*</span></mat-label>
+                                <input type="number" matInput [(ngModel)]="sangre.level" id="level" name="level" class="example-right-align">
+                                <mat-icon matPrefix fontIcon="show_chart"></mat-icon>
+                                <span matTextSuffix> mm</span>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <mat-form-field class="mat-form-field" appearance="outline" color="primary">
+                                <mat-label>Tipo de Sangre <span style="color: red">*</span></mat-label>
+                                <mat-select [(ngModel)]="sangre.type" id="type" name="type">
+                                    <mat-option *ngFor="let category of categories; let indice=index" [value]="category.code">
+                                        {{ category.title }}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-icon matPrefix fontIcon="category"></mat-icon>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row my-1">
+                        <mat-form-field class="mat-form-field" appearance="outline" color="primary">
+                            <mat-label>Descripción</mat-label>
+                            <textarea matInput [(ngModel)]="sangre.content" id="content" name="content"></textarea>
+                            <mat-icon matPrefix fontIcon="description"></mat-icon>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group my-3 text-center">
+                <button type="button" mat-flat-button color="primary" (click)="createOrUpdateSangre()">Guardar</button>
+            </div>
+    </div>
+</ng-template>
+<!-- Crear producto / Fin -->
