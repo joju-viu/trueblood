@@ -69,7 +69,7 @@ app.post('/register', function (req, res) {
 
     // send mail with defined transport object
     let info = transporter.sendMail({
-                from: '"Registro de Usuario" <joseeli12345@gmail.com>', 
+                from: '"Registro de Usuario" <jojugol@gmail.com>', 
                 to: email, 
                 subject: "Creacion de Cuenta",
                 html: `
