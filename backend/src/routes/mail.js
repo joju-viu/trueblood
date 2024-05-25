@@ -48,7 +48,7 @@ app.post('/mail/forgotPassword', function(req, res){
 
         // send mail with defined transport object
         let info = transporter.sendMail({
-                from: '"Forgot Password" <jojugol@gmail.com>', 
+                from: '"Forgot Password" <joseeli12345@gmail.com>', 
                 to: email, 
                 subject: subject,
                 html: `
@@ -82,7 +82,7 @@ app.post('/mail/form', function(req, res){
 
     // send mail with defined transport object
     let info = transporter.sendMail({
-            from: subject + ' <jojugol@gmail.com>', 
+            from: subject + ' <joseeli12345@gmail.com>', 
             to: emailTo, 
             subject: subject,
             html: message
