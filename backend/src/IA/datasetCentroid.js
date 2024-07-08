@@ -1,6 +1,8 @@
+// fs (file system) es una librería para archivos que te permite leer y escribir archivos
 const fs = require('fs');
 
-// Función para generar valores centroides dentro de un rango
+// Función para generar valores centroides dentro de un rango, 
+// Valores centroides son valores representativos dentro de un rango, para no utilizar todos los valores del rango, va cogiendo valores poco a poco
 const generateCentroids = (min, max, numCentroids) => {
     const step = (max - min) / (numCentroids - 1);
     const centroids = [];
