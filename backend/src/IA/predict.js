@@ -17,7 +17,7 @@ const loadModel = async () => {
   model.add(tf.layers.dense({ units: diagnoses.length, activation: 'softmax' })); // Capa de salida
 
   // Cargar los pesos del modelo
-  const weightsBuffer = fs.readFileSync('IA/model/weights.json');
+  const weightsBuffer = fs.readFileSync('src/IA/model/weights.json');
   const weightData = JSON.parse(weightsBuffer.toString());
 
   // Convertir los datos de los pesos en tensores
@@ -60,8 +60,8 @@ const  predict = async (inputData) => {
   const model = await loadModel();
 
   // Cargar los valores min y max
-  const globalMinArray = JSON.parse(fs.readFileSync('IA/model/globalMin.json'));
-  const globalMaxArray = JSON.parse(fs.readFileSync('IA/model/globalMax.json'));
+  const globalMinArray = JSON.parse(fs.readFileSync('src/IA/model/globalMin.json'));
+  const globalMaxArray = JSON.parse(fs.readFileSync('src/IA/model/globalMax.json'));
 
   const globalMin = tf.tensor(globalMinArray);
   const globalMax = tf.tensor(globalMaxArray);
@@ -92,7 +92,7 @@ const testData = [{
 predict(testData).then(diagnosis => {
   console.log(`Predicción: ${diagnosis}`);
 }).catch(err => {
-  console.error('Error realizando la predicción:', err);
+  console.error('', err);
 });
 
 

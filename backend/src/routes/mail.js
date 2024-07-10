@@ -82,7 +82,7 @@ app.post('/mail/form', function(req, res){
 
     // send mail with defined transport object
     let info = transporter.sendMail({
-            from: subject + ' <joseeli12345@gmail.com>', 
+            from: subject + ' <jojugol@gmail.com>', 
             to: emailTo, 
             subject: subject,
             html: message
