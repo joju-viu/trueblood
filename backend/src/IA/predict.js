@@ -60,8 +60,8 @@ const  predict = async (inputData) => {
   const model = await loadModel();
 
   // Cargar los valores min y max
-  const globalMinArray = JSON.parse(fs.readFileSync('src/IA/model/globalMin.json'));
-  const globalMaxArray = JSON.parse(fs.readFileSync('src/IA/model/globalMax.json'));
+  const globalMinArray = JSON.parse(fs.readFileSync('IA/model/globalMin.json'));
+  const globalMaxArray = JSON.parse(fs.readFileSync('IA/model/globalMax.json'));
 
   const globalMin = tf.tensor(globalMinArray);
   const globalMax = tf.tensor(globalMaxArray);
