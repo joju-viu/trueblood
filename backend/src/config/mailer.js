@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
- // create reusable transporter object using the default SMTP transport
+ // https://support.google.com/accounts/answer/185833?hl=es-419
 let transporter = nodemailer.createTransport({
 	host: "smtp.gmail.com",
 	port: 465,

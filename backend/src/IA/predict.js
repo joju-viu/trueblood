@@ -17,7 +17,7 @@ const loadModel = async () => {
   model.add(tf.layers.dense({ units: diagnoses.length, activation: 'softmax' })); // Capa de salida
 
   // Cargar los pesos del modelo
-  const weightsBuffer = fs.readFileSync('src/IA/model/weights.json');
+  const weightsBuffer = fs.readFileSync('IA/model/weights.json');
   const weightData = JSON.parse(weightsBuffer.toString());
 
   // Convertir los datos de los pesos en tensores

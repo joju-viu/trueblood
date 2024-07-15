@@ -7,6 +7,7 @@ const generateCentroids = (min, max, numCentroids) => {
     const step = (max - min) / (numCentroids - 1);
     const centroids = [];
     for (let i = 0; i < numCentroids; i++) {
+      // redondeamos ya que en la operación nos puede aparecer algún decimal
       centroids.push(Math.round(min + i * step));
     }
     return centroids;
@@ -19,11 +20,11 @@ const generateCentroidDataset = () => {
   const genders = ['Hombre', 'Mujer'];
   
   // Definir rangos y centroides para los valores
-  const redBloodCellsRange = generateCentroids(2400, 5500, 17);
-  const hemoglobinRange = generateCentroids(0, 300, 17);
-  const hematocritRange = generateCentroids(20, 60, 17);
-  const whiteBloodCellsRange = generateCentroids(2000, 15000, 17);
-  const plateletsRange = generateCentroids(500, 5000, 17);
+  const redBloodCellsRange = generateCentroids(2400, 5500, 15);
+  const hemoglobinRange = generateCentroids(0, 300, 15);
+  const hematocritRange = generateCentroids(20, 60, 15);
+  const whiteBloodCellsRange = generateCentroids(2000, 15000, 15);
+  const plateletsRange = generateCentroids(500, 5000, 15);
 
   for (const gender of genders) {
     for (const redBloodCells of redBloodCellsRange) {
